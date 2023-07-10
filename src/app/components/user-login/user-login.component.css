@@ -79,3 +79,7 @@
   .signup-link a {
     text-decoration: underline;
   }
+
+.error  {
+  border: 1px solid red;
+}

@@ -4,32 +4,34 @@
         <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3" style="margin-left: 29.333333%;">
           <div class="panel border bg-white">
             <div class="panel-body">
-                <form class="form">
+                <form class="form" [formGroup]="userSignupForm">
                     <p class="title">Register </p>
                     <p class="message">Signup now and get full access to our app. </p>
                         <label>
-                            <input required="" placeholder="" type="text" class="input">
+                            <input formControlName="firstName" required="" placeholder="" type="text" class="input">
                             <span>Firstname</span>
                         </label>
-                
+                        <small *ngIf="userSignupForm.controls['firstName'].dirty && userSignupForm.hasError('required', 'firstName')" class="text-danger">*Firstname is Required</small>
                         <label>
-                            <input required="" placeholder="" type="text" class="input">
+                            <input formControlName="lastName" required="" placeholder="" type="text" class="input">
                             <span>Lastname</span>
                         </label>
+                        <small *ngIf="userSignupForm.controls['lastName'].dirty && userSignupForm.hasError('required', 'lastName')" class="text-danger">*Lastname is Required</small>
                     <label>
-                        <input required="" placeholder="" type="email" class="input">
+                        <input formControlName="email" required="" placeholder="" type="email" class="input">
                         <span>Email</span>
                     </label> 
-                        
+                    <small *ngIf="userSignupForm.controls['email'].dirty && userSignupForm.hasError('required', 'email')" class="text-danger">*Email is Required</small>
                     <label>
-                        <input required="" placeholder="" type="password" class="input">
+                        <input formControlName="password" required="" placeholder="" type="password" class="input">
                         <span>Password</span>
                     </label>
+                    <small *ngIf="userSignupForm.controls['password'].dirty && userSignupForm.hasError('required', 'password')" class="text-danger">*Password is Required</small>
                     <!-- <label>
                         <input required="" placeholder="" type="password" class="input">
                         <span>Confirm password</span>
                     </label> -->
-                    <button class="submit">Submit</button>
+                    <button (click)="onSignup()" class="submit">Submit</button>
                     <p class="signin">Already have an acount ? <a routerLink="/userLogin">Signin</a> </p>
                 </form>
             </div>
