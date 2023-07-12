@@ -12,6 +12,8 @@ import {HttpClient} from '@angular/common/http'
 export class ServiceService {
    apiUrl = `http://localhost:3000/signUp  `
    loginUrl = 'http://localhost:3000/'
+  getUserUrl = 'http://localhost:3000/getUser'
+  updateUserUrl = 'http://localhost:3000/admin/adminUserUpdate'
 
   constructor(private http: HttpClient) { }
 
@@ -23,5 +25,12 @@ export class ServiceService {
     return this.http.post<userModel>(this.loginUrl, user)
   }
 
+  getUsers(): Observable<any> {
+    return this.http.get<any>(this.getUserUrl)
+  }
+
+  putUser(data: any, id: number): Observable<any> {
+    return this.http.put<any>(this.updateUserUrl + id, data)
+  } 
 
 }

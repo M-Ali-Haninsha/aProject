@@ -1,4 +1,4 @@
-<h1 mat-dialog-title> Add User </h1>
+<h1 mat-dialog-title> {{userActionTitle}} </h1>
 <div mat-dialog-content>
 <form [formGroup]="userForm">
     <mat-form-field appearance="outline">
@@ -13,7 +13,7 @@
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
-      
+
       <small  *ngIf="userForm.controls['email'].invalid && userForm.controls['email'].touched">
         <div class="text-danger" *ngIf="userForm.controls['email'].errors?.['required']" > email required</div>
         <mat-error  *ngIf="userForm.controls['email'].errors?.['email']" > invalid email</mat-error>
@@ -35,7 +35,7 @@
     
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button [mat-dialog-close]="true" (click)="addUser()" cdkFocusInitial>Add</button>
+        <button mat-button [mat-dialog-close]="true" (click)="addUser()" cdkFocusInitial>{{actionBtn}}</button>
       </mat-dialog-actions>
 </form>
 </div>

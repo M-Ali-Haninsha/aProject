@@ -1,3 +1,4 @@
+const { async } = require('rxjs');
 const userModel = require('../model/userModel')
 const bcrypt = require("bcrypt");
 
@@ -59,7 +60,20 @@ const loginSubmit = async (req, res) => {
     }
   };
 
+  const showUsers = async (req, res) => {
+    try{
+       const allUser =  await userModel.find();
+       console.log(allUser);
+       if(allUser){
+        res.status(200).json({user: allUser})
+       }
+    }catch(err) {
+        console.log(err);
+    }
+  }
+
 module.exports = {
     signupSubmit,
-    loginSubmit
+    loginSubmit,
+    showUsers
 }
