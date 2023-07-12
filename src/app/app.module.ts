@@ -7,18 +7,44 @@ import { UserSignupComponent } from './components/user-signup/user-signup.compon
 import { LoginComponent } from './components/login/login.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminComponent } from './adminComponents/admin/admin.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import { MatDialogModule} from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { DialogueComponent } from './adminComponents/dialogue/dialogue.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {NgIf} from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     UserSignupComponent,
     LoginComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    AdminComponent,
+    DialogueComponent,
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    MatDialogModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgIf,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,41 @@
+<h1 mat-dialog-title> Add User </h1>
+<div mat-dialog-content>
+<form [formGroup]="userForm">
+    <mat-form-field appearance="outline">
+        <mat-label> Firstname</mat-label>
+        <input matInput placeholder="Firstname" formControlName="firstname">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Lastname </mat-label>
+        <input matInput placeholder="Lastname" formControlName="lastname">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+      
+      <small  *ngIf="userForm.controls['email'].invalid && userForm.controls['email'].touched">
+        <div class="text-danger" *ngIf="userForm.controls['email'].errors?.['required']" > email required</div>
+        <mat-error  *ngIf="userForm.controls['email'].errors?.['email']" > invalid email</mat-error>
+      </small>
+    
+      <mat-form-field>
+        <mat-label>Enter your email</mat-label>
+        <input  matInput placeholder="pat@example.com"   formControlName="email" required>
+      </mat-form-field>
+     
+      
+      <mat-form-field>
+        <mat-label>Enter your password</mat-label>
+        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true" (click)="addUser()" cdkFocusInitial>Add</button>
+      </mat-dialog-actions>
+</form>
+</div>

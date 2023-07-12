@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
-import  validateForm  from '../../helpers/validateform';
+import userModel from '../../models/userModel'
+import { ServiceService } from '../../services/service.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-signup',
@@ -10,24 +12,28 @@ import  validateForm  from '../../helpers/validateform';
 export class UserSignupComponent implements OnInit {
 
   userSignupForm!: FormGroup;
+  formData!:any
+  userExists:boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private service: ServiceService, private route: Router) {}
 
   ngOnInit(): void {
       this.userSignupForm = this.formBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
-        email: ['', Validators.required],
-        password: ['', Validators.required]
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]]
       })
   }
 
   onSignup() {
     if(this.userSignupForm.valid) {
-      console.log(this.userSignupForm.value);
-    } else {
-      validateForm.validateAllFormFields(this.userSignupForm)
-      alert("Form is invalid")
+      console.log('userData', this.userSignupForm.value);
+      this.formData= this.userSignupForm.value;
+      this.service.addUser(this.formData).subscribe((value:any)=>{this.userExists = value
+        this.route.navigate(['/'])
+      })
+      console.log('done');
     }
   }
 }

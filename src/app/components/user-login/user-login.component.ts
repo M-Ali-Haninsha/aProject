@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
-import  validateForm  from '../../helpers/validateform';
+import { ServiceService } from '../../services/service.service'
+import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
@@ -11,8 +14,11 @@ export class UserLoginComponent implements OnInit {
   isText: boolean= false;
   eyeIcon: string = "fa-eye-slash"
   userLoginForm!: FormGroup;
+  formData!:any
+  passCheckErr:boolean = false
+  wrongEmail: boolean = false
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private service: ServiceService, private route: Router ) {}
 
   ngOnInit(): void {
       this.userLoginForm = this.formBuilder.group({
@@ -30,11 +36,17 @@ export class UserLoginComponent implements OnInit {
   onSubmit() {
     if(this.userLoginForm.valid) {
       console.log(this.userLoginForm.value);
-      
-    } else {
-      console.log("form is not filled");
-      validateForm.validateAllFormFields(this.userLoginForm)
-      alert('Form Is Invalid')
+      this.formData= this.userLoginForm.value;
+      this.service.login(this.formData).subscribe((value:any)=>{
+        console.log('login',value);
+        if(value.msg == 'passwordWrong') {
+          this.passCheckErr = true
+        } else if(value.msg == 'wrongEmail') {
+          this.wrongEmail = true
+        } else {
+          this.route.navigate(['/userSignup'])
+        }
+      })
     }
   }
 
