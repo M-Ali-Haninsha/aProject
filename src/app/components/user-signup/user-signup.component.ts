@@ -28,7 +28,6 @@ export class UserSignupComponent implements OnInit {
 
   onSignup() {
     if(this.userSignupForm.valid) {
-      console.log('userData', this.userSignupForm.value);
       this.formData= this.userSignupForm.value;
       this.service.addUser(this.formData).subscribe((value:any)=>{this.userExists = value
         this.route.navigate(['/'])

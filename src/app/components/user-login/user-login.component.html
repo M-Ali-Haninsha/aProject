@@ -15,12 +15,14 @@
                 <span> </span>
               </div>
               <small *ngIf="userLoginForm.controls['email'].touched && userLoginForm.hasError('required', 'email')" class="text-danger">*User Email required</small>
+              <small *ngIf="wrongEmail" class="text-danger">*email not found</small>
               <div class="input-container" >
                 <!-- [class.error]="userLoginForm.controls['password'].touched && userLoginForm.hasError('required', 'password')" -->
                 <input formControlName="password" [type]="type" placeholder="Enter password" style="width: 100%;" />
                 <span (click)="hideShowPass()" class="fa {{eyeIcon}}" style="position: absolute; right: 13px; top: 50%; transform: translateY(-50%); cursor: pointer;"></span>
               </div>
               <small *ngIf="userLoginForm.controls['password'].touched && userLoginForm.hasError('required', 'password')" class="text-danger">*Password required</small>
+              <small *ngIf="passCheckErr" class="text-danger">*Wrong password</small>
               <button (click)="onSubmit()" type="submit" class="submit">Sign in</button>
               <p class="signup-link">
                 No account?

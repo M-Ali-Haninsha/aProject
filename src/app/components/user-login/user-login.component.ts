@@ -35,7 +35,6 @@ export class UserLoginComponent implements OnInit {
 
   onSubmit() {
     if(this.userLoginForm.valid) {
-      console.log(this.userLoginForm.value);
       this.formData= this.userLoginForm.value;
       this.service.login(this.formData).subscribe((value:any)=>{
         console.log('login',value);
