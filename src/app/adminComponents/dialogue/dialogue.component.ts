@@ -14,22 +14,29 @@ export class DialogueComponent implements OnInit {
   userForm!:FormGroup
   actionBtn: string = 'save'
   userActionTitle: string = 'Add User'
+  userExists: boolean = false
+  updated:boolean = false
+
   constructor(private formbuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public editData:any, private service: ServiceService) {}
 
   ngOnInit(): void {
       this.userForm = this.formbuilder.group({
-        firstname: ['', Validators.required],
-        lastname: ['', Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required]
       })
+      
+      console.log(this.editData);
+      
 
       if(this.editData) {
         this.userActionTitle = 'Edit User'
         this.actionBtn = 'update'
-        this.userForm.controls['firstname'].setValue(this.editData.firstName)
-        this.userForm.controls['lastname'].setValue(this.editData.lastName)
+        this.userForm.controls['firstName'].setValue(this.editData.firstName)
+        this.userForm.controls['lastName'].setValue(this.editData.lastName)
         this.userForm.controls['email'].setValue(this.editData.email)
+        this.userForm.controls['password'].setValue(this.editData.password)
       }
   }
 
@@ -38,34 +45,15 @@ export class DialogueComponent implements OnInit {
     if(!this.editData){
       if(this.userForm.valid) {
          console.log(this.userForm.value);
+         this.service.adminAddUser(this.userForm.value).subscribe((value:any)=>{this.userExists = value })
       }
     } else {
       this.updateUser();
     }
   }
 
-  updateUser() {
-    if (this.userForm.valid) {
-      const userData = {
-        id: this.editData.id,
-        firstName: this.userForm.value.firstname,
-        lastName: this.userForm.value.lastname,
-        email: this.userForm.value.email
-      };
-  
-      this.service.putUser(userData, userData.id).subscribe((value)=> {
-        console.log(value);
-        
-      });
-      //   (response:any) => {
-      //     console.log(response);
-      //     // Handle the response or perform any additional actions
-      //   },
-      //   (error) => {
-      //     console.error('Failed to update user', error);
-      //     // Handle the error appropriately
-      //   }
-      // );
+  updateUser() {    
+      this.service.putUser(this.userForm.value, this.editData._id).subscribe((value:any)=>{this.updated = value});
     }
   }
-}
+

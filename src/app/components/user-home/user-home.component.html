@@ -1,0 +1,12 @@
+<mat-toolbar color="warn">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>supervised_user_circle</mat-icon>
+    </button>
+    <span>User Home</span>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="menu">user</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="toUser()">user profile</button>
+  <button mat-menu-item>signout</button>
+</mat-menu>
+  </mat-toolbar>

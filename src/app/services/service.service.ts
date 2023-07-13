@@ -13,7 +13,8 @@ export class ServiceService {
    apiUrl = `http://localhost:3000/signUp  `
    loginUrl = 'http://localhost:3000/'
   getUserUrl = 'http://localhost:3000/getUser'
-  updateUserUrl = 'http://localhost:3000/admin/adminUserUpdate'
+  updateUserUrl = 'http://localhost:3000/admin/adminUserUpdate/'
+  deleteUrl = 'http://localhost:3000/admin/adminUserDelete/'
 
   constructor(private http: HttpClient) { }
 
@@ -29,8 +30,17 @@ export class ServiceService {
     return this.http.get<any>(this.getUserUrl)
   }
 
+  adminAddUser(data: userModel): Observable<userModel> {
+    return this.http.post<userModel>(this.apiUrl, data)
+  }
+
   putUser(data: any, id: number): Observable<any> {
+    console.log("this is id", id);
+    
     return this.http.put<any>(this.updateUserUrl + id, data)
   } 
 
+  deleteUser(id:number): Observable<any> {
+    return this.http.delete<any>(this.deleteUrl + id)
+  }
 }

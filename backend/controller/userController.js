@@ -63,7 +63,6 @@ const loginSubmit = async (req, res) => {
   const showUsers = async (req, res) => {
     try{
        const allUser =  await userModel.find();
-       console.log(allUser);
        if(allUser){
         res.status(200).json({user: allUser})
        }

@@ -6,6 +6,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/adminUserUpdate', adminController.adminUpdateUser)
+router.post('/adminUserUpdate/:_id', adminController.adminUpdateUser)
+router.post('/adminUserDelete/:_id', adminController.adminDeleteUser)
 
 module.exports = router;

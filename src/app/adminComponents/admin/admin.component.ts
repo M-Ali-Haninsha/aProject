@@ -17,8 +17,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 })
 export class AdminComponent implements OnInit {
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'action'];
+  
+  displayedColumns: string[] = ['id','firstName', 'lastName', 'email', 'action'];
   dataSource!: MatTableDataSource<any>;
+  delete: boolean = false
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -52,6 +54,14 @@ export class AdminComponent implements OnInit {
     this.dialog.open(DialogueComponent, {
       width:'30%',
       data: row
+    })
+  }
+
+  deleteUser(id:any) {
+    this.service.deleteUser(id).subscribe((value)=> {
+      if(value == 'deleted') {
+        this.delete = true
+      }
     })
   }
 

@@ -43,7 +43,7 @@ export class UserLoginComponent implements OnInit {
         } else if(value.msg == 'wrongEmail') {
           this.wrongEmail = true
         } else {
-          this.route.navigate(['/userSignup'])
+          this.route.navigate(['/userHome'])
         }
       })
     }
