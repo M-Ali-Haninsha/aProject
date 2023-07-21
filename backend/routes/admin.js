@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const adminController  = require('../controller/adminController')
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const jwtMiddleware = require('../middlewares/jwtToken')
 
-router.post('/adminUserUpdate/:_id', adminController.adminUpdateUser)
-router.post('/adminUserDelete/:_id', adminController.adminDeleteUser)
+
+
+router.post('/adminLogin', adminController.adminLoginSubmit)
+router.put('/adminUserUpdate/:id',jwtMiddleware,  adminController.adminUpdateUser)
+router.delete('/adminUserDelete/:id', adminController.adminDeleteUser)
 
 module.exports = router;

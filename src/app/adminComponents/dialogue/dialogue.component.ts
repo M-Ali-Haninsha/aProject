@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {FormControl, Validators,FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { ServiceService } from 'src/app/services/service.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-dialogue',
@@ -21,8 +22,8 @@ export class DialogueComponent implements OnInit {
 
   ngOnInit(): void {
       this.userForm = this.formbuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
+        firstName: ['', [Validators.required, Validators.maxLength(10)]],
+        lastName: ['', [Validators.required, Validators.maxLength(10)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required]
       })
@@ -41,6 +42,7 @@ export class DialogueComponent implements OnInit {
   }
 
 
+
   addUser() {
     if(!this.editData){
       if(this.userForm.valid) {
@@ -53,7 +55,6 @@ export class DialogueComponent implements OnInit {
   }
 
   updateUser() {    
-      this.service.putUser(this.userForm.value, this.editData._id).subscribe((value:any)=>{this.updated = value});
+      this.service.putUser(this.userForm.value, this.editData._id).subscribe((value:any)=>{this.updated = value });
     }
   }
-

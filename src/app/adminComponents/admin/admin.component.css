@@ -14,3 +14,10 @@
     width: 100%;
   }
   
+  .responsive-table {
+    width: 100%;
+  }
+
+  .responsive-table-wrapper {
+    overflow-x: auto;
+  }

@@ -18,7 +18,11 @@ export class UserLoginComponent implements OnInit {
   passCheckErr:boolean = false
   wrongEmail: boolean = false
 
-  constructor(private formBuilder: FormBuilder, private service: ServiceService, private route: Router ) {}
+  constructor(private formBuilder: FormBuilder, private service: ServiceService, private route: Router ) {
+    if(localStorage.getItem('userValue')) {
+      this.route.navigate(['userHome'])
+    }
+  }
 
   ngOnInit(): void {
       this.userLoginForm = this.formBuilder.group({
@@ -40,10 +44,14 @@ export class UserLoginComponent implements OnInit {
         console.log('login',value);
         if(value.msg == 'passwordWrong') {
           this.passCheckErr = true
+
         } else if(value.msg == 'wrongEmail') {
           this.wrongEmail = true
         } else {
+          const strValue = JSON.stringify(value)
+          localStorage.setItem('userValue', strValue)
           this.route.navigate(['/userHome'])
+
         }
       })
     }

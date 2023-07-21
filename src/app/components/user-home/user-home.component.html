@@ -4,9 +4,44 @@
     </button>
     <span>User Home</span>
     <span class="example-spacer"></span>
-    <button mat-button [matMenuTriggerFor]="menu">user</button>
+    <button mat-button [matMenuTriggerFor]="menu"> {{userData.firstName}}</button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="toUser()">user profile</button>
-  <button mat-menu-item>signout</button>
+  
+  <button mat-menu-item (click)="userSignout()">signout</button>
 </mat-menu>
   </mat-toolbar>
+
+  <div class="container">
+    <div class="row">
+      <div class=" col-md-4">
+        <div style="margin-top: 10px;">
+          <mat-list role="list">
+            <mat-list-item role="listitem">Firstname: {{userData.firstName}}</mat-list-item>
+            <mat-list-item role="listitem">Lastname: {{userData.lastName}}</mat-list-item>
+            <mat-list-item role="listitem">email: {{userData.email}}</mat-list-item>
+          </mat-list>
+         </div>
+         </div>
+    
+    <div class="col-md-4">
+      <mat-card class="example-card mt-4">
+        <mat-card-header>
+          <mat-card-title>{{userData.firstName}}</mat-card-title>
+          <mat-card-subtitle>{{userData.firstName}} {{userData.lastName}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{userData.email}}</p>
+        </mat-card-content>
+        <!-- <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions> -->
+      </mat-card>
+    </div>
+    </div>
+
+  </div>
+  
+     
+ 
+  

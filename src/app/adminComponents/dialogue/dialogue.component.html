@@ -1,12 +1,21 @@
 <h1 mat-dialog-title> {{userActionTitle}} </h1>
 <div mat-dialog-content>
 <form [formGroup]="userForm">
+  <small *ngIf="userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched">
+    <div class="text-danger" *ngIf="userForm.controls['firstName'].errors?.['required']" > firstname  required</div>
+    <div class="text-danger"  *ngIf="userForm.controls['firstName'].errors?.['maxlength']" > character exceeded</div>
+  </small>
     <mat-form-field appearance="outline">
         <mat-label> Firstname</mat-label>
         <input matInput placeholder="Firstname" formControlName="firstName">
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
+
+      <small *ngIf="userForm.controls['lastName'].invalid && userForm.controls['lastName'].touched">
+        <div class="text-danger" *ngIf="userForm.controls['lastName'].errors?.['required']" > lastname required</div>
+        <div class="text-danger"  *ngIf="userForm.controls['lastName'].errors?.['maxlength']" > character exceeded</div>
+      </small>
       <mat-form-field appearance="outline">
         <mat-label> Lastname </mat-label>
         <input matInput placeholder="Lastname" formControlName="lastName">

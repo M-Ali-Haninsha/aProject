@@ -12,11 +12,13 @@
                             <span>Firstname</span>
                         </label>
                         <small *ngIf="userSignupForm.controls['firstName'].touched && userSignupForm.hasError('required', 'firstName')" class="text-danger">*Firstname is Required</small>
+                        <small class="text-danger" *ngIf="userSignupForm.controls['firstName'].errors?.['minlength']">* minimum 4 characters required</small>
                         <label>
                             <input formControlName="lastName" required="" placeholder="" type="text" class="input">
                             <span>Lastname</span>
                         </label>
                         <small *ngIf="userSignupForm.controls['lastName'].touched && userSignupForm.hasError('required', 'lastName')" class="text-danger">*Lastname is Required</small>
+                        <small class="text-danger" *ngIf="userSignupForm.controls['lastName'].errors?.['minlength']">* minimum 4 characters required</small>
                     <label>
                         <input formControlName="email" required="" placeholder="" type="email" class="input">
                         <span>Email</span>
@@ -29,7 +31,7 @@
                         <span>Password</span>
                     </label>
                     <small *ngIf="userSignupForm.controls['password'].touched && userSignupForm.hasError('required', 'password')" class="text-danger">*Password is Required</small>
-                    <small *ngIf="userSignupForm.controls['password'].errors?.['minlength'] ">*minimum 6 characters required</small>
+                    <small class="text-danger" *ngIf="userSignupForm.controls['password'].errors?.['minlength'] ">*minimum 6 characters required</small>
                     <button  class="submit">Submit</button>
                     <p class="signin">Already have an acount ? <a routerLink="/">Signin</a> </p>
                 </form>

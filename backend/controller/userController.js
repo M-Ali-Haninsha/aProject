@@ -1,7 +1,8 @@
 const { async } = require('rxjs');
 const userModel = require('../model/userModel')
 const bcrypt = require("bcrypt");
-
+const jwt = require('jsonwebtoken');
+const secretKey = 'your-secret-key';
 
 const bcryptPassword = async (password) => {
     try {
@@ -48,7 +49,9 @@ const loginSubmit = async (req, res) => {
       if (user) {
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (passwordMatch) {
-         res.status(200).json({msg:'passMatched'})
+          const token = jwt.sign({ value: user }, secretKey, { expiresIn: '6000000' });
+         res.status(200).json({msg:'passMatched', token})
+
           } else {
             res.status(200).json({msg:'passwordWrong'})
           }
@@ -71,8 +74,27 @@ const loginSubmit = async (req, res) => {
     }
   }
 
+  const userHomeDetails = async (req, res)=> {
+    try {
+        const authHeader = req.headers.authorization;
+        const token = authHeader && authHeader.split(' ')[1];
+        const decoded = jwt.verify(token, secretKey);
+        const findvalue = await userModel.findOne({ email: decoded.value.email });
+        res.status(200).json({ findvalue: findvalue });
+  
+    }catch(err) {
+
+    }
+  }
+
 module.exports = {
     signupSubmit,
     loginSubmit,
-    showUsers
+    showUsers,
+    userHomeDetails
 }
+
+
+
+
+        

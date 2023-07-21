@@ -19,10 +19,18 @@ import {MatInputModule} from '@angular/material/input';
 import {NgIf} from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {MatTableModule} from '@angular/material/table';
+import {MatCardModule} from '@angular/material/card';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatListModule} from '@angular/material/list';
+import { NgConfirmModule } from 'ng-confirm-box';
+import { AdminLoginComponent } from './adminComponents/admin-login/admin-login.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { userReducer } from '../app/adminComponents/states/user.reducer';
+import { UserEffects } from '../app/adminComponents/states/user.effects';
 
 
 @NgModule({
@@ -33,6 +41,7 @@ import {MatMenuModule} from '@angular/material/menu';
     AdminComponent,
     DialogueComponent,
     UserHomeComponent,
+    AdminLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,9 +58,14 @@ import {MatMenuModule} from '@angular/material/menu';
     NgIf,
     RouterModule,
     MatTableModule,
+    MatCardModule,
     MatPaginatorModule,
     MatSortModule,
-    MatMenuModule
+    MatMenuModule,
+    MatListModule,
+    NgConfirmModule,
+    StoreModule.forRoot({ user: userReducer }),
+    EffectsModule.forRoot([UserEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

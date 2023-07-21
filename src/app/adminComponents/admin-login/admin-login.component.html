@@ -1,0 +1,26 @@
+<div class="outer">
+    <div class="container">
+        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3" style="height: 40rem; align-items: center; display: flex; margin-left: 31rem;">
+            <form class="form" [formGroup]="adminLoginForm">
+                <p class="form-title">Sign in to your account</p>
+                 <div class="input-container">
+                   <input formControlName="email" type="email" placeholder="Enter email">
+                   <span>
+                   </span>
+               </div>
+               <small *ngIf="adminLoginForm.controls['email'].touched && adminLoginForm.hasError('required', 'email')" class="text-danger">*User Email required</small>
+               <small *ngIf="wrongEmail" class="text-danger"> *invalid credentials</small>
+               <div class="input-container">
+                   <input formControlName="password" [type]="type" placeholder="Enter password">
+                   <span (click)="hideShowPass()" class="fa {{eyeIcon}}" style="position: absolute; right: 13px; top: 50%; transform: translateY(-50%); cursor: pointer;"></span>
+                 </div>
+                 <small *ngIf="adminLoginForm.controls['password'].touched && adminLoginForm.hasError('required', 'password')" class="text-danger">*password required</small>
+                  <button (click)="onSubmit()" type="submit" class="submit">
+                 Sign in
+               </button>
+            
+            </form>
+        </div>
+    </div>
+</div>
+
